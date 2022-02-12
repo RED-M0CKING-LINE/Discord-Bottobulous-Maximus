@@ -1,0 +1,8 @@
+- the bot can ping itself
+- the bot can respond to file names in spamCog since it is part of message.content apparently
+- the bot doesnt stop when you say `mention stop
+- the bot does not have a start or restart command
+- SpamCog is setup to raise True to the message "sushi" cause it contains "sus" because the condition doesnt seek for "sus " OR "suspicious" OR "sussy"
+- make a script that is called by crontab that restarts the bot (just move the crontab command into a script and call it a day)
+- mention stop stopped working for some reason lol
+- replace current deployment method with pulling from github lol
