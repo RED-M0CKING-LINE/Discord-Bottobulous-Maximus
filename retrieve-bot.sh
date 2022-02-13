@@ -4,7 +4,7 @@ WORKING_DIR="/root"
 cd $WORKING_DIR
 
 # Update the local copy of the bots code using the remote
-cd ./Discord-Bottobulous-Maximus && git pull -q || git clone https://github.com/RED-M0CKING-LINE/Discord-Bottobulous-Maximus.git
+cd ./Discord-Bottobulous-Maximus && git reset --hard && git pull -q || git clone https://github.com/RED-M0CKING-LINE/Discord-Bottobulous-Maximus.git
 
 cd $WORKING_DIR
 # Now put symbolic links into the project for persistant data, to preserve the data

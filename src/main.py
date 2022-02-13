@@ -1,5 +1,5 @@
 '''
-NOTE crontab command for autostart: @reboot cd /root/ Discord-Bottobulous-Maximus/src && /usr/bin/nohup /usr/bin/python3 /root/ Discord-Bottobulous-Maximus/src/main.py  
+NOTE crontab command for autostart: @reboot cd /root/Discord-Bottobulous-Maximus/src && /usr/bin/nohup /usr/bin/python3 /root/Discord-Bottobulous-Maximus/src/main.py  
 TODO make it go in a docker container? maybe later 
 '''
 
