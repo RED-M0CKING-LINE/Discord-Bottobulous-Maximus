@@ -1,0 +1,33 @@
+{
+    "python.pythonPath": "/home/ethan/Sync/Code Workspace/PYTHON3/venv/bin/python",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.gradle": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "basic_http_server.py": true,
+        "tmp": true,
+        "src/__pycache__": true,
+        "__pycache__": true,
+        "src/cogs/__pycache__": true,
+        "UNLICENSE": true,
+        ".vscode": true
+    },
+    "python.linting.pylintArgs": [ // Customize pylint to 
+        "--max-line-length=120",
+        "--enable=all",
+        "--disable=C,R,fixme,pointless-string-statement" //TODO refine more to allow refactor and convention but make a blacklist for annoying problems
+    ],
+    "cSpell.words": [
+        "Bottobulous",
+        "Maximus",
+        "nohup"
+    ]
+}

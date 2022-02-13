@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "../."
+		}
+	],
+	"settings": {
+		"hide-files.files": [
+			"basic_http_server.py",
+			"tmp",
+			"src/__pycache__",
+			"__pycache__",
+			"src/cogs/__pycache__",
+			"UNLICENSE",
+			".vscode"
+		]
+	}
+}

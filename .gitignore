@@ -109,9 +109,8 @@ dmypy.json
 # Unnessisary system or IDE generated files
 .DS_Store
 
-# Repo specific files
+# Repo specific files #####
 config/SECRETS/**
-.vscode/
 tmp/
 
 ## INCLUDE ALL README files, no matter where they are.
