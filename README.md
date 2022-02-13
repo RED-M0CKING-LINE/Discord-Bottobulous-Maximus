@@ -19,7 +19,7 @@ The `/run.sh` script likely will not work because when I wrote it, I did not thi
 
 ## My Environment:
 - I'm using Debian Stable
-- Python 3.9.2
+- CPython 3.9.2 &nbsp; <sup><sub>I tested PyPy but it was roughly 2 times slower.</sup></sub>
 
 If you decide to use this code, I cannot promise that it will work for you under any circumstances. This is just what I am using, and it is working for me. It is very much in early development. 
 

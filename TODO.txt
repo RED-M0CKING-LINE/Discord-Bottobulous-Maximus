@@ -7,8 +7,12 @@
 - mention stop stopped working for some reason lol
 - replace current deployment method with pulling from github lol
 - store the discord API token in a better way. see how others have stored secrets. add an auto-configuration script to setup the bot
-- make the bots status link to the github respond
+-- make the bots status link to the github repo
 - Take IDs out and allow special cases to be configurable
 - Here's an idea, *configuration files*. Who would have thunk it
 - rebuild the container i have the bot running in
+- add a cog that will ban someone if they play League of Legends for more than 30 minutes
+- document which packages will be needed (requirements.txt)
+- include venv?
+- replaces print statements with log() calls
 - 

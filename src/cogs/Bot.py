@@ -1,4 +1,4 @@
-from utils import log
+from utils import asyncLog
 from discord.ext import commands
 from os import system
 
@@ -20,8 +20,8 @@ class cogBot(commands.Cog):
     @Bot.command()
     @commands.is_owner()
     async def restart(self, ctx):
-        await log(f'Restart invoked by {ctx.message.author} (ID:{ctx.message.author.id})', ctx)
-        await log('This command is disfunctional. Im having troubles getting the bot to start itself after the loop ends. please use the stop command instead', ctx)
+        await asyncLog(f'Restart invoked by {ctx.message.author} (ID:{ctx.message.author.id})', ctx)
+        await asyncLog('This command is disfunctional. Im having troubles getting the bot to start itself after the loop ends. please use the stop command instead', ctx)
         ''' #TODO figure out how to get this command to restart the program after it is closed
         from main import PROJECT_ROOT
         print(PROJECT_ROOT)
@@ -32,7 +32,7 @@ class cogBot(commands.Cog):
     @Bot.command()
     #@commands.is_owner() #TODO make a whitelist of people who can stop the bot
     async def stop(self, ctx):
-        await log(f'Shutdown invoked by {ctx.message.author} (ID:{ctx.message.author.id})', ctx)
+        await asyncLog(f'Shutdown invoked by {ctx.message.author} (ID:{ctx.message.author.id})', ctx)
         await ctx.bot.close()
     
 

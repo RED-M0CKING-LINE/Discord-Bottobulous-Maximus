@@ -1,6 +1,7 @@
 
 from random import random
-from time import strftime, localtime
+from time import strftime, localtime, time_ns
+from datetime import timedelta
 
 #TODO make some code to show a progress bar message in chat and edit it based on the progress of an operation.
 
@@ -29,14 +30,20 @@ def rng(chance):
         return None
     return random() <= chance/100
 
-
-''' A command to log actions
-if ctx is provided it will send the log to the discord chat where it was invoked as well
-
-this is very minimal. create a rolling log maybe?
+''' This calculates the uptime of the program in human readable format
 '''
-async def log(text, ctx = None):
-    text = strftime("%H:%M:%S", localtime()) + 'EST: ' + text
+PROGRAM_START_TIME = time_ns()
+def getUptime():
+    return str(timedelta(microseconds=(time_ns() - PROGRAM_START_TIME)/1000))
+
+''' Logging commands
+asyncLog() will log to chat if ctx is passed, then calls log()
+log() only logs to console and file  #TODO make log() log to a file as well
+'''
+def log(text):
+    print(f"{getUptime()}: {str(text)}")
+async def asyncLog(text, ctx = None):
     if not ctx == None:
-        await ctx.send('Log: ' + text)
-    print(text)
+        await ctx.send(f"Log: {getUptime()}: {str(text)}") #TODO test to make sure this works with "`bot stop"
+    log(text)
+
