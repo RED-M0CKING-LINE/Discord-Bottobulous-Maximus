@@ -14,7 +14,7 @@ class cogMention(commands.Cog):
             await ctx.send('mention start <id> <repeat> <delay> \nmention stop')
 
     @mention.command(name='stop')
-    async def stopper(self):
+    async def stopper(self, ctx): # ctx is required here or else the bot throws errors
         self.stop = True
 
     '''
@@ -25,19 +25,25 @@ class cogMention(commands.Cog):
     '''
     @mention.command(name='start')
     async def run(self, ctx, *args):
-        try:
-            repeat = int(args[1])
-        except IndexError:
-            repeat = 1
-        try:
-            sleep = int(args[2])
-        except IndexError:
-            sleep = 0.8
         if args[0] == '216207613098983424':
             await ctx.send('Get fucked nerd. LMFAO')
             return None
         elif not len(args[0]) == 18: #TODO add a check to make sure this contains no letters
-            await ctx.send('Invalid ID. Let me know if you find a discord ID that isnt 18 characters or contain letters lmao')
+            await ctx.send('Invalid ID. Let me know if you find a discord ID that isnt 18 characters or contain letters lmao') 
+            return
+        
+        try:
+            repeat = int(args[1])
+        except IndexError:
+            repeat = 3
+            ctx.send('Invalid repeat argument')
+        try:
+            sleep = 0.8
+            if not int(args[2]) < sleep:
+                sleep = int(args[2])
+        except IndexError or TypeError:
+            pass
+
         repeat = repeat -1
         loop = 0
         while loop <= repeat:

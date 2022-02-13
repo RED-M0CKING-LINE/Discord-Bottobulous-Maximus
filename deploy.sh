@@ -7,6 +7,8 @@ function ctrl_c() {
         kill $P1
 }
 
+echo THIS WILL NOT WORK WITH RECENT CHANGES BUT IT WILL PROBABLY BE REPLACES ANYWAY
+
 cd /home/ethan/Sync/Code\ Workspace/PYTHON3/Discord\ Bottobulous/
 
 mkdir build

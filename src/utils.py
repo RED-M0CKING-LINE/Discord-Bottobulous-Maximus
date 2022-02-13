@@ -4,6 +4,7 @@ from time import strftime, localtime
 
 #TODO make some code to show a progress bar message in chat and edit it based on the progress of an operation.
 
+#TODO add a class in here that will handle reading all the configuration
 
 '''
 when you define an on_message event listener it will execute that listener and the main on_message event.

@@ -106,7 +106,23 @@ dmypy.json
 .pyre/
 ########## END GITHUB DEFAULT PYTHON GITIGNORE ##########
 
+# Unnessisary system or IDE generated files
+.DS_Store
 
-config/DISCORD_API_TOKEN
+# Repo specific files
+config/SECRETS/**
 .vscode/
 tmp/
+
+## INCLUDE ALL README files, no matter where they are.
+##      this will help with preserving the file structure and adds in project documentation for what these
+##      folders are for. CONSIDERATION: should these files be named USAGE?
+!README
+!README.txt
+!README.md
+## Redundant statement. maybe remove in the future but for now it ensures no README is left behind, with the possibility of accidentially including other files
+!README.?*
+
+
+
+########## BEGIN UNORGANIZED (and possibly automated) ADDITIONS TO GITIGNORE #########

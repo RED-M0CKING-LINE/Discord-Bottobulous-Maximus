@@ -6,3 +6,6 @@
 - make a script that is called by crontab that restarts the bot (just move the crontab command into a script and call it a day)
 - mention stop stopped working for some reason lol
 - replace current deployment method with pulling from github lol
+- store the discord API token in a better way. see how others have stored secrets. add an auto-configuration script to setup the bot
+- make the bots status link to the github respond
+- 

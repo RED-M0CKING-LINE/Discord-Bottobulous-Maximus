@@ -3,6 +3,10 @@ import asyncio
 import subprocess
 
 
+#TODO return the current working directory as well before listing the files
+#TODO separate the directories and files
+#FIXME if you run "`truehelp cogs/TrueHelp.py" the output will be broken. escape the '`' symbol maybe?
+
 class cogTrueHelp(commands.Cog):
 
     def __init__(self, bot):
@@ -12,14 +16,14 @@ class cogTrueHelp(commands.Cog):
     '''
     This truly helps the user...
     '''
-    @commands.command(name='trueHelp')
+    @commands.command(name='trueHelp') #FIXME the box includes the pycache directory. don't do that.
     async def run(self, ctx, *args):
         async with self.lock:
             try:
                 if not str(args[0]).find('Data/') == -1 or not str(args[0]).find('..') == -1:
                     await ctx.send('No.')
                 else:
-                    with open(str(args[0])) as x:
+                    with open(str(args[0]), encoding="UTF-8") as x:
                         msg = '```python3\n'
                         lineCount = 1
                         for l in x:
