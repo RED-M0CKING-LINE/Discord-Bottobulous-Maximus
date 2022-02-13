@@ -1,5 +1,5 @@
 '''
-NOTE crontab command for autostart: @reboot /usr/bin/nohup /usr/bin/python3 /root/Discord\ Bottobulous/main.py
+NOTE crontab command for autostart: @reboot cd /root/ Discord-Bottobulous-Maximus/src && /usr/bin/nohup /usr/bin/python3 /root/ Discord-Bottobulous-Maximus/src/main.py  
 TODO make it go in a docker container? maybe later 
 '''
 
@@ -40,7 +40,7 @@ except FileNotFoundError:
     exit()
 
 #TODO autoadd all cogs in the folder dynamically and exclude a list of disabled (but installed cogs
-enabled_cogs = ['Mention', 'TrueHelp', 'SimonSays', 'Divide', 'Everyone', 'Pin', 'FuckBryce', 'Spam', 'Music', 'Bot'] # Disabled: Ping
+enabled_cogs = ['Mention', 'TrueHelp', 'SimonSays', 'Divide', 'Everyone', 'Pin', 'FuckBryce', 'Spam', 'Bot'] # Disabled: 'Ping', 'Music',
 for x in enabled_cogs:
     print('Loading Cog: ' + x)
     bot.load_extension('cogs.{}'.format(x))

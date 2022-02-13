@@ -10,4 +10,5 @@
 - make the bots status link to the github respond
 - Take IDs out and allow special cases to be configurable
 - Here's an idea, *configuration files*. Who would have thunk it
+- rebuild the container i have the bot running in
 - 

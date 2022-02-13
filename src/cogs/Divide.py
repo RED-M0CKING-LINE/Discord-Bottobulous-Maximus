@@ -7,7 +7,7 @@ class cogDivide(commands.Cog):
         self.bot = bot
         self.lock = asyncio.Lock()
         
-    #FIX `divide 1 400000 outputs .25000 WHY
+    #FIXME `divide 1 400000 outputs .25000 WHY
     @commands.command('divide')
     async def divide(self, ctx, *args):
         if not self.lock:
