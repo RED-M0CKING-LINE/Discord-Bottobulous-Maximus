@@ -11,4 +11,6 @@ cd $WORKING_DIR
 rm -r ./Discord-Bottobulous-Maximus/config/  # This may break things later on if I store defaults here. Defaults should be hardcoded and then overridden.
 ln -s "$(echo $WORKING_DIR)/Bot-Data/config" "./Discord-Bottobulous-Maximus/config"
 
+echo REBOOTING
+
 reboot

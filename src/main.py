@@ -1,5 +1,5 @@
 '''
-NOTE crontab command for autostart: @reboot cd /root/Discord-Bottobulous-Maximus/src && /usr/bin/nohup /usr/bin/python3 /root/Discord-Bottobulous-Maximus/src/main.py  
+NOTE crontab command for autostart: @reboot cd /root/Discord-Bottobulous-Maximus/src && /usr/bin/nohup /usr/bin/python3 /root/Discord-Bottobulous-Maximus/src/main.py > /root/BotCronAutorun.log
 TODO make it go in a docker container? maybe later 
 '''
 
@@ -35,9 +35,10 @@ try: #TODO ensure this catches the errors it needs to. i havent tested it at all
     with open("{}/../config/SECRETS/DISCORD_API_TOKEN".format(PROJECT_ROOT), "r") as f:
         TOKEN = f.readline()
         f.close()
-except FileNotFoundError:
-    print("No file for token at PROJECT_ROOT/../Data/DISCORD_API_TOKEN")
-    exit()
+except FileNotFoundError as e:
+    print(str(e))
+    print("No file for token at PROJECT_ROOT/../config/SECRETS/DISCORD_API_TOKEN")
+    raise e
 
 #TODO autoadd all cogs in the folder dynamically and exclude a list of disabled (but installed cogs
 enabled_cogs = ['Mention', 'TrueHelp', 'SimonSays', 'Divide', 'Everyone', 'Pin', 'FuckBryce', 'Spam', 'Bot'] # Disabled: 'Ping', 'Music',
