@@ -1,6 +1,6 @@
 
 from random import random
-from time import strftime, localtime, time_ns
+from time import sleep, strftime, localtime, time_ns
 from datetime import timedelta
 
 #TODO make some code to show a progress bar message in chat and edit it based on the progress of an operation.
@@ -47,3 +47,17 @@ async def asyncLog(text, ctx = None):
         await ctx.send(f"Log: {getUptime()}: {str(text)}") #TODO test to make sure this works with "`bot stop"
     log(text)
 
+'''
+'''
+async def sendMessage(ctx, string, maxCharacters=2000):
+    lower = 0
+    upper = maxCharacters
+    while True:
+        if len(string) <= lower:
+            break
+        elif len(string) < upper:
+            upper = len(string)
+        await ctx.send(string[lower:upper])
+        lower = lower + maxCharacters
+        upper = upper + maxCharacters
+    sleep(.9) # so that the bot does not get throttled as much

@@ -18,7 +18,10 @@
         "__pycache__": true,
         "src/cogs/__pycache__": true,
         "UNLICENSE": true,
-        ".vscode": true
+        ".vscode": true,
+        "README.md": true,
+        "deploy.sh": true,
+        "retrieve-bot.sh": true
     },
     "python.linting.pylintArgs": [ // Customize pylint to 
         "--max-line-length=120",

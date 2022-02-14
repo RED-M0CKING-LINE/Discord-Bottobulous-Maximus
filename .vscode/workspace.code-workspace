@@ -12,7 +12,10 @@
 			"__pycache__",
 			"src/cogs/__pycache__",
 			"UNLICENSE",
-			".vscode"
+			".vscode",
+			"README.md",
+			"deploy.sh",
+			"retrieve-bot.sh"
 		]
 	}
 }
