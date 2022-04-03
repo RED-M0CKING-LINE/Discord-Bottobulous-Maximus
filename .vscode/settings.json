@@ -21,7 +21,8 @@
         ".vscode": true,
         "README.md": true,
         "deploy.sh": true,
-        "retrieve-bot.sh": true
+        "retrieve-bot.sh": true,
+        "src/.mypy_cache": true
     },
     "python.linting.pylintArgs": [ // Customize pylint to 
         "--max-line-length=120",

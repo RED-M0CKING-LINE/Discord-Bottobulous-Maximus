@@ -15,4 +15,11 @@
 - document which packages will be needed (requirements.txt)
 - include venv?
 - replaces print statements with log() calls
+- create a cog that listens for typing indicators from people and announce that they were typing in that chat if they dont send a message after the typing stops.
+- create a cog that analyzes a synced memes folder and posts any new memes to the chat, while keeping a hash of memes already sent by it and others, calling out other people who repost memes into the same channel, and to prevent the bot from being a reposter normie
+- when the program is sending a lot of messages they seem to be slightly blocking to the program when the bot is on cooldown from sending messages. this slows down the execution of other commands in the bot, since they are asyncronous in the same thread and the thread will not continue until the message is sent.  
+- The bot can ping itself. dont
+- The bot can ping other bots. dont
+- Integrate the matrix-discord-bridge into my bot as a cog (https://github.com/git-bruh/matrix-discord-bridge). allow it to be configured via discord commands as well.
+- add a whitelist for the check to allow some bot users to process commands, such as webhooks made by this bot for the matrix bridge
 - 

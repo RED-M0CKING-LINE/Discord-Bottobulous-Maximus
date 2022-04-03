@@ -15,7 +15,8 @@
 			".vscode",
 			"README.md",
 			"deploy.sh",
-			"retrieve-bot.sh"
+			"retrieve-bot.sh",
+			"src/.mypy_cache"
 		]
 	}
 }

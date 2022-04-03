@@ -2,51 +2,154 @@
 NOTE crontab command for autostart: @reboot cd /root/Discord-Bottobulous-Maximus/src && /usr/bin/nohup /usr/bin/python3 /root/Discord-Bottobulous-Maximus/src/main.py > /root/BotCronAutorun.log
 TODO make it go in a docker container? maybe later 
 '''
-global PROGRAM_START_TIME
+#BUG Bot.py imports this file, thus rerunning much of the code. it shouldnt do that, so move getRestart and setRestart to a static config class in its own file
 
+''' This is used to save the state of the interpreter prior to execution, and then to reload it
+__saved_context__ = {}
+
+def saveContext():
+    import sys
+    __saved_context__.update(sys.modules[__name__].__dict__)
+
+def restoreContext():
+    import sys
+    names = sys.modules[__name__].__dict__.keys()
+    for n in names:
+        if n not in __saved_context__:
+            del sys.modules[__name__].__dict__[n]
+
+saveContext()
+# '''
+
+
+import asyncio
+from time import sleep
 from discord.ext import commands
-
 from os import path
-from utils import log, on_message_check as utils_on_message_check
+import utils
 
-log('Imports complete. Program starting.')
+log = utils.log  #FIXME this is because i had to change the imports and i dont wish to rename all instances of this at the moment
+log('main.py imports complete. Program starting.')
 
-COMMAND_PREFIX = '`'
-PROJECT_ROOT = path.dirname(__file__)
-bot = commands.Bot(command_prefix=commands.when_mentioned_or(COMMAND_PREFIX), case_insensitive=True)
+PROJECT_ROOT = path.dirname(__file__)  #TODO store into config rather than a variable
+# '''
 
-@bot.event
-async def on_ready():
-    log(f'{bot.user} (ID: {bot.user.id}) has connected.')
-    log('Connected to the following guilds:')
-    for guild in bot.guilds:
-        log(f"    - {guild.name} (id: {guild.id})")
-    log('Ready.')
+class Main:
+    ''' This is the main program loop
+    It runs the program. Sometimes restarting it.
+    '''
+    
+    def __init__(self):
+        log('PROJECT_ROOT = ' + str(PROJECT_ROOT))
+
+        self.COMMAND_PREFIX = '`'  #TODO make this configurable
+        #self.bot = commands.Bot(command_prefix=commands.when_mentioned_or(self.COMMAND_PREFIX), case_insensitive=True)
+        self.__create_bot_object()
+
+        try:  # Get the Discord API Token from its configured location
+            with open("{}/../config/SECRETS/DISCORD_API_TOKEN".format(PROJECT_ROOT), "r") as f:
+                self.TOKEN = f.readline()
+                f.close()
+        except FileNotFoundError as e:
+            log(str(e))
+            log("No file for token at PROJECT_ROOT/../config/SECRETS/DISCORD_API_TOKEN")
+            raise e
+
+        @self.bot.event #TODO make these methods private methods
+        async def on_ready():
+            log(f'{self.bot.user} (ID: {self.bot.user.id}) has connected.')
+            log('Connected to the following guilds:')
+            for guild in self.bot.guilds:
+                log(f"    - {guild.name} (id: {guild.id})")
+            log('Ready.')
+    
+        @self.bot.event
+        async def on_message(message):
+            if utils.on_message_check(self.bot, message):
+                await self.bot.process_commands(message)
+                return
+        
+        log('Bot Initalized.')
+        
+    def __create_bot_object(self):
+        self.bot = commands.Bot(command_prefix=commands.when_mentioned_or(self.COMMAND_PREFIX), case_insensitive=True)
+
+    def enable_cogs(self):
+        #TODO autoadd all cogs in the folder dynamically and exclude a list of disabled (but installed cogs
+        enabled_cogs = ['Mention', 'TrueHelp', 'SimonSays', 'Divide', 'Everyone', 'Pin', 'FuckBryce', 'Spam', 'Bot'] # Disabled: 'Ping', 'Music',
+        for x in enabled_cogs:
+            log('Loading Cog: ' + x)
+            self.bot.load_extension(f'cogs.{x}')  #BUG catch the exceptions this call throws and log them
+
+    def run(self):
+        self.enable_cogs()
+        #try:
+        self.bot.run(self.TOKEN)
+        #self.bot.logout()
+        self.bot.clear()
+
+        '''
+        except RuntimeError as e:
+            timeout = 0
+            while not self.bot.is_closed():
+                sleep(.1)
+                timeout += 1
+                if timeout > 100: # sets timeout for program to close. for 10 seconds, write 100.
+                    print('Timeout Exceeded.')
+                    raise e
+                    # '''
+
+async def main():
+    Main().run()
+
+if __name__ == "__main__":
+    while(True):
+        '''
+        import asyncio
+        from time import sleep
+        from discord.ext import commands
+        from os import path
+        import utils
+        log = utils.log  #FIXME this is because i had to change the imports and i dont wish to rename all instances of this at the moment
+        log('main.py imports complete. Program starting.')
+
+        PROJECT_ROOT = path.dirname(__file__)  #TODO store into config rather than a variable
+        # '''
+
+        utils.setConfig('runtime', 'restart', (True if utils.getConfig('user', 'AutoRestart') == True else False)) # Sets the default to not restart when the program closes #TODO read this from a config file of what the user prefers
+        #try:
+        Main().run()  # THIS IS BLOCKING
+    #    asyncio.run(main())
+        #except BaseException as e: #TODO make it catch any fatal exception from the program and log it
+        #    log('{}'.format(e))
+
+        if False == utils.getConfig('runtime', 'restart'):  #BUG this still wont restart the program. it will loop back to the start call but it errors out. something about loops not being closed. encapsulate entire program in a loop and delete all objects?, then reinitialize
+            log('Bot Stopped.')
+            break
+        asyncio.set_event_loop(asyncio.new_event_loop())  #This line is the solution of much suffering when trying to have the bot restart itself
+        sleep(1)
 
 
-@bot.event
-async def on_message(message):
-    if utils_on_message_check(bot, message):
-        await bot.process_commands(message) #TODO break processing if the message has been processed as a command
 
 
-log('PROJECT_ROOT = ' + str(PROJECT_ROOT))
 
-try:
-    with open("{}/../config/SECRETS/DISCORD_API_TOKEN".format(PROJECT_ROOT), "r") as f:
-        TOKEN = f.readline()
-        f.close()
-except FileNotFoundError as e:
-    log(str(e))
-    log("No file for token at PROJECT_ROOT/../config/SECRETS/DISCORD_API_TOKEN")
-    raise e
 
-#TODO autoadd all cogs in the folder dynamically and exclude a list of disabled (but installed cogs
-enabled_cogs = ['Mention', 'TrueHelp', 'SimonSays', 'Divide', 'Everyone', 'Pin', 'FuckBryce', 'Spam', 'Bot'] # Disabled: 'Ping', 'Music',
-for x in enabled_cogs:
-    log('Loading Cog: ' + x)
-    bot.load_extension('cogs.{}'.format(x))  #BUG catch the exceptions this call throws and log them
 
-log('Bot Initalized. Starting...')
-bot.run(TOKEN) # THIS IS BLOCKING
-log('Bot Stopped')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

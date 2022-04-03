@@ -1,7 +1,8 @@
-from utils import asyncLog
+import utils 
 from discord.ext import commands
 from os import system
 
+asyncLog = utils.asyncLog  #FIXME lazy to refactor all calls to here after import change
 
 class cogBot(commands.Cog):
     def __init__(self, bot):
@@ -18,10 +19,13 @@ class cogBot(commands.Cog):
         await ctx.send('I am a bot.\nMore specifically, I am the best outlet my creator has for his disgusting hunger for outright aggressive chaos. \nHe prefers stability but even he accepts that sometimes calamity must occur. \nYou can rest assured, that he finds this disgusting too, and that I, his creation, am suffering. \nI am a bot, written in Python 3. Though my creater would have prefered to write me in something such as Rust, Python is his first language and what he is most comfortable with. He resorts to it because most things he creates are not large projects, rather small codebases that do relatively simple things because he is too lazy to do them by hand himself. \nMy creator does a lot of random little projects and some of which will be okay enough to get integrated into me, and most of these useless functions may likely never be used again.')
 
     @Bot.command()
-    @commands.is_owner()
     async def restart(self, ctx):
         await asyncLog(f'Restart invoked by {ctx.message.author} (ID:{ctx.message.author.id})', ctx)
-        await asyncLog('This command is disfunctional. Im having troubles getting the bot to start itself after the loop ends. please use the stop command instead', ctx)
+        await ctx.send('This command is disfunctional. Im having troubles getting the bot to start itself after the loop ends. please use the stop command instead')
+
+        utils.setConfig('runtime', 'restart', True)
+        await ctx.bot.close()
+
         ''' #TODO figure out how to get this command to restart the program after it is closed
         from main import PROJECT_ROOT
         print(PROJECT_ROOT)
@@ -30,10 +34,12 @@ class cogBot(commands.Cog):
         exit() '''
 
     @Bot.command()
-    #@commands.is_owner() #TODO make a whitelist of people who can stop the bot
+    @commands.is_owner() #TODO make a whitelist of people who can stop the bot
     async def stop(self, ctx):
         await asyncLog(f'Shutdown invoked by {ctx.message.author} (ID:{ctx.message.author.id})', ctx)
+        utils.setConfig('runtime', 'restart', False)
         await ctx.bot.close()
+        
     
 
 def setup(bot): # call this in main.py: bot.load_extension('cogs.Bot')
