@@ -19,7 +19,6 @@
         "src/cogs/__pycache__": true,
         "UNLICENSE": true,
         ".vscode": true,
-        "README.md": true,
         "deploy.sh": true,
         "retrieve-bot.sh": true,
         "src/.mypy_cache": true

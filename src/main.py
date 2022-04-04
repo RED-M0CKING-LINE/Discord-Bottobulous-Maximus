@@ -2,25 +2,6 @@
 NOTE crontab command for autostart: @reboot cd /root/Discord-Bottobulous-Maximus/src && /usr/bin/nohup /usr/bin/python3 /root/Discord-Bottobulous-Maximus/src/main.py > /root/BotCronAutorun.log
 TODO make it go in a docker container? maybe later 
 '''
-#BUG Bot.py imports this file, thus rerunning much of the code. it shouldnt do that, so move getRestart and setRestart to a static config class in its own file
-
-''' This is used to save the state of the interpreter prior to execution, and then to reload it
-__saved_context__ = {}
-
-def saveContext():
-    import sys
-    __saved_context__.update(sys.modules[__name__].__dict__)
-
-def restoreContext():
-    import sys
-    names = sys.modules[__name__].__dict__.keys()
-    for n in names:
-        if n not in __saved_context__:
-            del sys.modules[__name__].__dict__[n]
-
-saveContext()
-# '''
-
 
 import asyncio
 from time import sleep
@@ -28,7 +9,7 @@ from discord.ext import commands
 from os import path
 import utils
 
-log = utils.log  #FIXME this is because i had to change the imports and i dont wish to rename all instances of this at the moment
+log = utils.log  #FIXME this is because i had to change the imports and i don't wish to rename all instances of this at the moment
 log('main.py imports complete. Program starting.')
 
 PROJECT_ROOT = path.dirname(__file__)  #TODO store into config rather than a variable
@@ -99,23 +80,12 @@ class Main:
                     raise e
                     # '''
 
+'''
 async def main():
-    Main().run()
+    Main().run() # '''
 
 if __name__ == "__main__":
     while(True):
-        '''
-        import asyncio
-        from time import sleep
-        from discord.ext import commands
-        from os import path
-        import utils
-        log = utils.log  #FIXME this is because i had to change the imports and i dont wish to rename all instances of this at the moment
-        log('main.py imports complete. Program starting.')
-
-        PROJECT_ROOT = path.dirname(__file__)  #TODO store into config rather than a variable
-        # '''
-
         utils.setConfig('runtime', 'restart', (True if utils.getConfig('user', 'AutoRestart') == True else False)) # Sets the default to not restart when the program closes #TODO read this from a config file of what the user prefers
         #try:
         Main().run()  # THIS IS BLOCKING
@@ -126,7 +96,7 @@ if __name__ == "__main__":
         if False == utils.getConfig('runtime', 'restart'):  #BUG this still wont restart the program. it will loop back to the start call but it errors out. something about loops not being closed. encapsulate entire program in a loop and delete all objects?, then reinitialize
             log('Bot Stopped.')
             break
-        asyncio.set_event_loop(asyncio.new_event_loop())  #This line is the solution of much suffering when trying to have the bot restart itself
+        asyncio.set_event_loop(asyncio.new_event_loop())  # This line is the solution of much suffering when trying to have the bot restart itself
         sleep(1)
 
 

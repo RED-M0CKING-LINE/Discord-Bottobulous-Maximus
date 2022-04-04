@@ -13,7 +13,6 @@
 			"src/cogs/__pycache__",
 			"UNLICENSE",
 			".vscode",
-			"README.md",
 			"deploy.sh",
 			"retrieve-bot.sh",
 			"src/.mypy_cache"

@@ -35,6 +35,6 @@ I was going to say just no license, since this is a hobby project that I made fo
 <br>
 The two licenses I found to pick from was the [Unlicense](https://unlicense.org/) and [WTFPL](http://www.wtfpl.net/about/). Though I admire WTFPL for its short and blunt approach, Unlicense seems like a better choice.
 <br>
-**By contributing to this project in any way, you agree to the Unlicense license and the following statement. (Copied from [here](https://unlicense.org/#unlicensing-contributions).)**
+**This project uses a *slightly* modified version of the Unlicense. By contributing to this project in any way, you agree to the license specified in ./LICENSE, as well as the following statement. (Copied from [here](https://unlicense.org/#unlicensing-contributions).)**
 <br>
 > I dedicate any and all copyright interest in this software to the public domain. I make this dedication for the benefit of the public at large and to the detriment of my heirs and successors. I intend this dedication to be an overt act of relinquishment in perpetuity of all present and future rights to this software under copyright law.
