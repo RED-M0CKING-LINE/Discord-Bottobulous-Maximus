@@ -1,7 +1,8 @@
 
+from asyncio import sleep as async_sleep
 import json
 from random import random
-from time import sleep, strftime, localtime, time_ns
+from time import strftime, localtime, time_ns
 from datetime import timedelta
 
 #TODO make some code to show a progress bar message in chat and edit it based on the progress of an operation.
@@ -49,21 +50,28 @@ async def asyncLog(text, ctx = None):
     log(text)
 
 
-async def sendMessage(ctx, string, maxCharacters=2000):  #TODO is ctx the right thing to pass here?
+async def sendMessage(ctx, message, maxCharacters=2000, maxMessages=30):  #TODO is ctx the right thing to pass here?
     ''' If you want to send a message and it MAY be longer than discords limit, 
     this will split it into multiple messages.
+    ctx: this is the context of the message for the bot to reply into the same channel  #TODO make it so i can pass a channel argument to achieve the same purpose. passing the whole context is not needed
+    message: string. this is the message to be sent
+    maxCharacters: int. this is the maximum number of characters for each message to contain
+    maxMessages: int. this is the maximum number of messages to send from the string, otherwise truncate the output. set to zero to allow any amount of messages
     '''
     lower = 0
     upper = maxCharacters
-    while True:
-        if len(string) <= lower:
+    sentMessages = 0
+    while True:            
+        if len(message) <= lower:
             break
-        elif len(string) < upper:
-            upper = len(string)
-        await ctx.send(string[lower:upper])
+        elif len(message) < upper:
+            upper = len(message)
+        await ctx.send(message[lower:upper])
+        if maxMessages < sentMessages:
+            await ctx.send('The output was too long and has been truncated to prevent grievous chat spam. The default threshold can be overridden if you so wish.')
         lower = lower + maxCharacters
         upper = upper + maxCharacters
-    sleep(.9) # so that the bot does not get throttled as much
+        async_sleep(0.9)  # so that the bot does not get throttled as much  #FIXME ensure this works right. does this fix the blocking that happens when the bot is sending many messages? probably not
 
 
 
@@ -73,7 +81,7 @@ def getConfig(category, key):
     key: the value name to find
     Returns None if the key is not found
     '''
-    with open('../config/config.json', 'r') as file:
+    with open('../config/config.json', 'r', encoding='UTF-8') as file:
         config = json.loads(file.read())
     try:
         return config[f"{category}"][f"{key}"]
@@ -86,9 +94,9 @@ def setConfig(category, key, value):
     key: the value name to set
     value: the stored value for the key. Values are stored exactly as they are passed in
     '''
-    with open('../config/config.json', 'r') as file:
+    with open('../config/config.json', 'r', encoding='UTF-8') as file:
         config = json.loads(file.read())
     config.update({f"{category}": {f"{key}": value}})
     config = json.dumps(config)
-    with open('../config/config.json', 'w') as file:
+    with open('../config/config.json', 'w', encoding='UTF-8') as file:
         file.write(config)

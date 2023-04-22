@@ -17,4 +17,5 @@
 - The bot can ping other bots. dont
 - Integrate the matrix-discord-bridge into my bot as a cog (https://github.com/git-bruh/matrix-discord-bridge). allow it to be configured via discord commands as well.
 - add a whitelist for the check to allow some bot users to process commands, such as webhooks made by this bot for the matrix bridge
+- if config.json does not exist, the program fails to create it. if the file is empty, it fails to build it.
 - 
